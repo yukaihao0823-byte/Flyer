@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天佑 x 蒲公英平台計劃</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600&family=Noto+Sans+TC:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #e0d8cc;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 32px 0;
+    font-family: 'Noto Serif TC', serif;
+  }
+  .flyer {
+    width: 420px;
+    background: #faf6f0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(80,60,40,0.18);
+    padding: 52px 40px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .flyer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow { position: absolute; border-radius: 50%; pointer-events: none; }
+  .glow-1 { width: 280px; height: 280px; top: -60px; right: -70px; background: radial-gradient(circle, rgba(196,168,100,0.10) 0%, transparent 70%); }
+  .glow-2 { width: 180px; height: 180px; bottom: 100px; left: -50px; background: radial-gradient(circle, rgba(180,150,90,0.08) 0%, transparent 70%); }
+  .dandelion-main {
+    position: absolute; top: -10px; right: -18px;
+    width: 170px; opacity: 0.18;
+    pointer-events: none; z-index: 0;
+  }
+  .dandelion-small {
+    position: absolute; bottom: 110px; left: -14px;
+    width: 100px; opacity: 0.10;
+    pointer-events: none; z-index: 0;
+    transform: rotate(20deg);
+  }
+  .badge {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 26px;
+  }
+  .badge-line { width: 26px; height: 1px; background: #b09060; }
+  .badge-text {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 10.5px; font-weight: 300;
+    letter-spacing: 3.5px; color: #b09060;
+  }
+  .title-section { position: relative; z-index: 1; margin-bottom: 28px; }
+  .en-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12.5px; font-style: italic;
+    color: #b09060; letter-spacing: 2px; margin-bottom: 8px;
+  }
+  .main-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 26px; font-weight: 600;
+    color: #2e2318; line-height: 1.35;
+    letter-spacing: 3px; margin-bottom: 6px;
+  }
+  .main-title .accent { color: #8a6030; }
+  .title-sub {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13.5px; font-weight: 400;
+    color: #6a5a48; letter-spacing: 2px; margin-bottom: 14px;
+  }
+  .tagline {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 12.5px; font-weight: 300;
+    color: #7a6a58; line-height: 1.9; letter-spacing: 0.8px;
+  }
+  .divider {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; gap: 10px;
+    margin: 20px 0;
+  }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, #c8b090, transparent); }
+  .divider-diamond { width: 5px; height: 5px; background: #b09060; transform: rotate(45deg); }
+  .info-section { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 16px; margin-bottom: 22px; }
+  .info-block { display: flex; gap: 14px; align-items: flex-start; }
+  .info-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9.5px; letter-spacing: 2.5px;
+    color: #b09060; text-transform: uppercase;
+    padding-top: 3px; min-width: 46px;
+  }
+  .info-content { flex: 1; }
+  .info-main {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 14.5px; font-weight: 500;
+    color: #2e2318; letter-spacing: 1px; margin-bottom: 3px;
+  }
+  .info-sub {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 11px; font-weight: 300;
+    color: #8a7a68; letter-spacing: 0.5px; line-height: 1.7;
+  }
+  .agenda-section {
+    position: relative; z-index: 1;
+    background: rgba(196,168,100,0.07);
+    border-left: 2px solid #c8b08a;
+    padding: 14px 16px; margin-bottom: 20px;
+  }
+  .agenda-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9.5px; letter-spacing: 3px;
+    color: #b09060; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .agenda-items { display: flex; flex-direction: column; gap: 7px; }
+  .agenda-item { display: flex; align-items: flex-start; gap: 10px; }
+  .agenda-dot {
+    width: 3px; height: 3px; border-radius: 50%;
+    background: #b09060; flex-shrink: 0; margin-top: 7px;
+  }
+  .agenda-text {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 12px; font-weight: 300;
+    color: #5a4e42; letter-spacing: 0.5px; line-height: 1.6;
+  }
+  .refresh-note {
+    position: relative; z-index: 1;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 10.5px; font-weight: 300;
+    color: #9a8a78; letter-spacing: 0.8px;
+    text-align: center; margin-bottom: 20px;
+  }
+  .invite-section { position: relative; z-index: 1; text-align: center; margin-bottom: 24px; }
+  .invite-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 12.5px; font-weight: 300;
+    color: #7a6a58; line-height: 2; letter-spacing: 1px;
+  }
+  .invite-highlight { color: #8a6030; font-weight: 500; }
+  .cta-wrap { position: relative; z-index: 1; }
+  .cta-btn {
+    display: block; width: 100%;
+    background: #3a2e22; color: #faf6f0;
+    text-decoration: none; text-align: left;
+    padding: 22px 28px 20px;
+    transition: background 0.25s;
+  }
+  .cta-btn:hover { background: #2a2018; }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; }
+  .cta-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px; letter-spacing: 3px;
+    color: #c8b090; text-transform: uppercase;
+    display: block; margin-bottom: 5px;
+  }
+  .cta-action {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px; font-weight: 500;
+    color: #faf6f0; letter-spacing: 2px; display: block;
+  }
+  .cta-sub {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 10px; font-weight: 300;
+    color: #b09070; letter-spacing: 1px;
+    display: block; margin-top: 4px;
+  }
+  .cta-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .cta-host {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 11px; color: #c8b090; letter-spacing: 2px;
+  }
+  .cta-arrow { font-size: 20px; color: #c8b090; }
+  .brand-bar {
+    height: 3px;
+    background: linear-gradient(to right, #b09060, #d4b882, #b09060);
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .badge         { animation: fadeUp 0.6s ease 0.1s both; }
+  .title-section { animation: fadeUp 0.6s ease 0.2s both; }
+  .info-section  { animation: fadeUp 0.6s ease 0.3s both; }
+  .agenda-section{ animation: fadeUp 0.6s ease 0.4s both; }
+  .invite-section{ animation: fadeUp 0.6s ease 0.5s both; }
+  .cta-wrap      { animation: fadeUp 0.6s ease 0.6s both; }
+</style>
+</head>
+<body>
+<div class="flyer">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <svg class="dandelion-main" viewBox="0 0 200 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M100 230 C99 200 101 178 100 155" stroke="#7a5c28" stroke-width="2" stroke-linecap="round"/>
+    <path d="M100 155 C101 128 99 105 100 82" stroke="#7a5c28" stroke-width="1.8" stroke-linecap="round"/>
+    <circle cx="100" cy="80" r="5.5" fill="#c8a050"/>
+    <line x1="100" y1="74" x2="100" y2="26" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="100" cy="23" rx="2.5" ry="4" fill="#d4b060" opacity="0.85"/>
+    <circle cx="100" cy="18" r="1.8" fill="#e8cc80" opacity="0.6"/>
+    <line x1="102" y1="75" x2="119" y2="28" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="120" cy="25" rx="2.5" ry="4" transform="rotate(-22 120 25)" fill="#d4b060" opacity="0.83"/>
+    <line x1="105" y1="76" x2="134" y2="37" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="135.5" cy="34.5" rx="2.5" ry="4" transform="rotate(-44 135.5 34.5)" fill="#d4b060" opacity="0.80"/>
+    <line x1="106" y1="79" x2="146" y2="52" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="148" cy="50" rx="2.5" ry="4" transform="rotate(-66 148 50)" fill="#d4b060" opacity="0.77"/>
+    <line x1="106" y1="81" x2="152" y2="68" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="154" cy="67.5" rx="2.5" ry="4" transform="rotate(-88 154 67.5)" fill="#d4b060" opacity="0.74"/>
+    <line x1="105" y1="84" x2="148" y2="84" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="150.5" cy="84" rx="2.5" ry="4" transform="rotate(-110 150.5 84)" fill="#d4b060" opacity="0.70"/>
+    <line x1="104" y1="87" x2="140" y2="100" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="141.5" cy="102.5" rx="2.5" ry="4" transform="rotate(-132 141.5 102.5)" fill="#d4b060" opacity="0.66"/>
+    <line x1="102" y1="88" x2="125" y2="112" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="126.5" cy="114.5" rx="2.5" ry="4" transform="rotate(-154 126.5 114.5)" fill="#d4b060" opacity="0.62"/>
+    <line x1="100" y1="86" x2="109" y2="120" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="109.5" cy="122.5" rx="2.5" ry="4" fill="#d4b060" opacity="0.58"/>
+    <line x1="98" y1="75" x2="81" y2="28" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="80" cy="25" rx="2.5" ry="4" transform="rotate(22 80 25)" fill="#d4b060" opacity="0.83"/>
+    <line x1="95" y1="76" x2="66" y2="37" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="64.5" cy="34.5" rx="2.5" ry="4" transform="rotate(44 64.5 34.5)" fill="#d4b060" opacity="0.80"/>
+    <line x1="94" y1="79" x2="54" y2="52" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="52" cy="50" rx="2.5" ry="4" transform="rotate(66 52 50)" fill="#d4b060" opacity="0.77"/>
+    <line x1="94" y1="81" x2="48" y2="68" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="46" cy="67.5" rx="2.5" ry="4" transform="rotate(88 46 67.5)" fill="#d4b060" opacity="0.74"/>
+    <line x1="95" y1="84" x2="52" y2="84" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="49.5" cy="84" rx="2.5" ry="4" transform="rotate(110 49.5 84)" fill="#d4b060" opacity="0.70"/>
+    <line x1="96" y1="87" x2="60" y2="100" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="58.5" cy="102.5" rx="2.5" ry="4" transform="rotate(132 58.5 102.5)" fill="#d4b060" opacity="0.66"/>
+    <line x1="98" y1="88" x2="75" y2="112" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="73.5" cy="114.5" rx="2.5" ry="4" transform="rotate(154 73.5 114.5)" fill="#d4b060" opacity="0.62"/>
+    <line x1="100" y1="86" x2="91" y2="120" stroke="#b08840" stroke-width="0.8"/>
+    <ellipse cx="90.5" cy="122.5" rx="2.5" ry="4" fill="#d4b060" opacity="0.58"/>
+    <g opacity="0.5">
+      <line x1="160" y1="38" x2="164" y2="50" stroke="#c8a050" stroke-width="0.6"/>
+      <circle cx="164" cy="51.5" r="1.5" fill="#d4b060"/>
+      <line x1="173" y1="22" x2="177" y2="13" stroke="#c8a050" stroke-width="0.5"/>
+      <circle cx="177" cy="12" r="1.3" fill="#d4b060"/>
+      <line x1="182" y1="55" x2="188" y2="46" stroke="#c8a050" stroke-width="0.5"/>
+      <circle cx="188" cy="44.5" r="1.2" fill="#d4b060"/>
+      <line x1="168" y1="66" x2="174" y2="58" stroke="#c8a050" stroke-width="0.5"/>
+      <circle cx="174" cy="56.5" r="1.2" fill="#d4b060"/>
+      <line x1="155" y1="18" x2="159" y2="10" stroke="#c8a050" stroke-width="0.5"/>
+      <circle cx="159" cy="8.5" r="1.2" fill="#d4b060"/>
+    </g>
+    <path d="M100 142 C110 134 122 131 130 133 C120 138 109 141 100 142Z" fill="#8a7040" opacity="0.45"/>
+    <path d="M100 160 C90 152 78 149 70 151 C80 156 91 159 100 160Z" fill="#8a7040" opacity="0.38"/>
+  </svg>
+
+  <svg class="dandelion-small" viewBox="0 0 130 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M65 150 C64 125 66 108 65 90" stroke="#7a5c28" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M65 90 C66 72 64 58 65 44" stroke="#7a5c28" stroke-width="1.3" stroke-linecap="round"/>
+    <circle cx="65" cy="42" r="3.8" fill="#c8a050"/>
+    <line x1="65" y1="38" x2="65" y2="8" stroke="#b08840" stroke-width="0.7"/><ellipse cx="65" cy="6" rx="2" ry="3.2" fill="#d4b060" opacity="0.8"/>
+    <line x1="67" y1="38" x2="79" y2="10" stroke="#b08840" stroke-width="0.7"/><ellipse cx="80" cy="8" rx="2" ry="3.2" transform="rotate(-22 80 8)" fill="#d4b060" opacity="0.77"/>
+    <line x1="69" y1="39" x2="89" y2="17" stroke="#b08840" stroke-width="0.7"/><ellipse cx="90.5" cy="15.5" rx="2" ry="3" transform="rotate(-44 90.5 15.5)" fill="#d4b060" opacity="0.74"/>
+    <line x1="70" y1="41" x2="97" y2="29" stroke="#b08840" stroke-width="0.7"/><ellipse cx="98.5" cy="27.5" rx="2" ry="3" transform="rotate(-66 98.5 27.5)" fill="#d4b060" opacity="0.70"/>
+    <line x1="70" y1="43" x2="99" y2="40" stroke="#b08840" stroke-width="0.7"/><ellipse cx="101" cy="40" rx="2" ry="3" transform="rotate(-88 101 40)" fill="#d4b060" opacity="0.66"/>
+    <line x1="70" y1="45" x2="97" y2="53" stroke="#b08840" stroke-width="0.7"/><ellipse cx="98.5" cy="55" rx="2" ry="3" transform="rotate(-110 98.5 55)" fill="#d4b060" opacity="0.62"/>
+    <line x1="69" y1="47" x2="88" y2="63" stroke="#b08840" stroke-width="0.7"/><ellipse cx="89.5" cy="65" rx="2" ry="3" transform="rotate(-132 89.5 65)" fill="#d4b060" opacity="0.58"/>
+    <line x1="63" y1="38" x2="51" y2="10" stroke="#b08840" stroke-width="0.7"/><ellipse cx="50" cy="8" rx="2" ry="3.2" transform="rotate(22 50 8)" fill="#d4b060" opacity="0.77"/>
+    <line x1="61" y1="39" x2="41" y2="17" stroke="#b08840" stroke-width="0.7"/><ellipse cx="39.5" cy="15.5" rx="2" ry="3" transform="rotate(44 39.5 15.5)" fill="#d4b060" opacity="0.74"/>
+    <line x1="60" y1="41" x2="33" y2="29" stroke="#b08840" stroke-width="0.7"/><ellipse cx="31.5" cy="27.5" rx="2" ry="3" transform="rotate(66 31.5 27.5)" fill="#d4b060" opacity="0.70"/>
+    <line x1="60" y1="43" x2="31" y2="40" stroke="#b08840" stroke-width="0.7"/><ellipse cx="29" cy="40" rx="2" ry="3" transform="rotate(88 29 40)" fill="#d4b060" opacity="0.66"/>
+    <line x1="60" y1="45" x2="33" y2="53" stroke="#b08840" stroke-width="0.7"/><ellipse cx="31.5" cy="55" rx="2" ry="3" transform="rotate(110 31.5 55)" fill="#d4b060" opacity="0.62"/>
+    <path d="M65 108 C74 101 85 98 92 100 C83 105 73 107 65 108Z" fill="#8a7040" opacity="0.4"/>
+  </svg>
+
+  <div class="badge">
+    <div class="badge-line"></div>
+    <div class="badge-text">天佑客戶 ／ 好友限定</div>
+    <div class="badge-line"></div>
+  </div>
+
+  <div class="title-section">
+    <div class="en-sub">Tianyou × Dandelion Platform</div>
+    <div class="main-title"><span class="accent">天佑</span> x 蒲公英<br>平台計劃</div>
+    <div class="title-sub">人生規劃書 說明會</div>
+    <div class="tagline">
+      有些事，不是不重要<br>
+      只是我們總以為還有時間<br><br>
+      這一個下午，留給自己
+    </div>
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="info-section">
+    <div class="info-block">
+      <div class="info-label">Time</div>
+      <div class="info-content">
+        <div class="info-main">115 年 5 月 16 日（六）</div>
+        <div class="info-sub">
+          13:30 — 14:00 &nbsp;入場 · 交流<br>
+          14:00 — 17:00 &nbsp;正式開始
+        </div>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="info-label">Venue</div>
+      <div class="info-content">
+        <div class="info-main">集思台大會議中心</div>
+        <div class="info-sub">
+          【米開朗基羅廳】<br>
+          台北市大安區羅斯福路四段 85 號 B1
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="agenda-section">
+    <div class="agenda-label">Agenda</div>
+    <div class="agenda-items">
+      <div class="agenda-item">
+        <div class="agenda-dot"></div>
+        <div class="agenda-text">產業趨勢與人生規劃的交叉點</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-dot"></div>
+        <div class="agenda-text">蒲公英人生規劃書 — 理念與內容介紹</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-dot"></div>
+        <div class="agenda-text">建立第二收入 / 被動收入的實際方法</div>
+      </div>
+      <div class="agenda-item">
+        <div class="agenda-dot"></div>
+        <div class="agenda-text">真實案例分享與現場 Q&amp;A</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="refresh-note">✦ &nbsp;現場提供西點餐盒與礦泉水&nbsp; ✦</div>
+
+  <div class="invite-section">
+    <div class="invite-text">
+      這場說明會，只開放給<br>
+      <span class="invite-highlight">天佑的客戶與好友</span><br>
+      名額有限，歡迎帶一位在乎的人同來
+    </div>
+  </div>
+
+  <div class="cta-wrap">
+    <a class="cta-btn"
+       href="https://docs.google.com/forms/d/1VQ1PQf-a6LcZzYYcM7D5Fu7foCQX0_1KEgX_R0w55gg/viewform"
+       target="_blank" rel="noopener">
+      <div class="cta-inner">
+        <div>
+          <span class="cta-label">Register Now</span>
+          <span class="cta-action">點此填寫報名表單</span>
+          <span class="cta-sub">名額有限 · 敬請提早登記</span>
+        </div>
+        <div class="cta-right">
+          <span class="cta-host">禮儀師 凱皓 主講</span>
+          <span class="cta-arrow">→</span>
+        </div>
+      </div>
+    </a>
+    <div class="brand-bar"></div>
+  </div>
+
+</div>
+</body>
+</html>
